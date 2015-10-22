@@ -1,4 +1,4 @@
-# smartpolls
+# SmartPolls
 
 Webapp for classroom polling.
 
