@@ -35,7 +35,7 @@ var routes = require('./routes/routes')(passport);
 app
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: false }))
-    .use(express.static('./public'))
+    .use(express.static('./public', { index: false}))
     .use('/', routes)
     .use('/api', api)
     .listen(3000, function(){

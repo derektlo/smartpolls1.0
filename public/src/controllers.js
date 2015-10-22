@@ -1,17 +1,16 @@
 angular.module('SmartPolls')
-    .controller('DashboardController', function ($scope, $rootScope, Poll, $location) {
-        console.log("in dashboard controller");
-        $rootScope.PAGE = "all";
+    .controller('DashboardController', function ($scope, $rootScope, Poll, $state) {
         $scope.polls = Poll.query();
-
-        // $scope.show = function (id) {
-        //     $location.url('/poll/' + id);
-        // };
+        console.log("polls: ", $scope.polls);
+        $scope.show = function (id) {
+            console.log(id);
+            $state.go('singlePoll', {pollId : id});
+        };
     })
-    .controller('NewPollController', function ($scope, $rootScope, Poll, $location) {
-        console.log("new poll");
+    .controller('NewPollController', function ($scope, $rootScope, Poll, $state) {
         $rootScope.PAGE = "new";
-        $scope.newPoll = new Poll({
+        $scope.strParams = '';
+        $scope.poll = new Poll({
             name:       ['', 'text'],
             parameters: ['', 'array'],
             values:     ['', 'array'],
@@ -19,19 +18,30 @@ angular.module('SmartPolls')
         });
 
         $scope.save = function () {
+            $scope.poll.parameters = $scope.strParams.split(",");
             if ($scope.newPoll.$invalid) {
                 $scope.$broadcast('record:invalid');
             } else {
-                $scope.newPoll.$save();
-                $location.url('/polls');
+                $scope.poll.$save();
+                $state.go('dashboard');
             }
         };
     })
-    .controller('SinglePollController', function ($scope, $rootScope, $location, Poll, $routeParams) {
+    .controller('SinglePollController', function ($scope, $rootScope, $state, Poll) {
         $rootScope.PAGE = "single";
-        $scope.contact = Contact.get({ id: parseInt($routeParams.id, 10) });
+        console.log($state.params.pollId);
+        Poll.get({ id: $state.params.pollId }, function(poll){
+            console.log(poll.parameters);
+            $scope.poll = poll;
+            $scope.labels = $scope.poll.parameters;
+            $scope.data = [300, 500, 100];
+        });
+        // console.log("Viewing poll: ", $scope.poll);
+        // console.log("Hm ", $scope.poll.parameters);
+
+
         $scope.delete = function () {
-            $scope.contact.$delete();
-            $location.url('/polls');
+            $scope.poll.$delete();
+            $state.go('dashboard');
         };
     });

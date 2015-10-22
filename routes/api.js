@@ -9,17 +9,42 @@ router
     .use(bodyParser.json())
     .route('/polls')
         .get(function (req, res) {
-            Poll.find({userId : id}, function (err, doc) {
+            Poll.find({userId : req.user._id}, function (err, doc) {
                 if (err) {
 
                 } else {
-
+                    res.json(doc);
                 }
             });
+        })
+        .post(function (req, res){
+            var poll = new Poll(req.body);
+            if (poll.name.length == 0 || poll.parameters.length == 0) {
+                res.json({message : 'There was an error.'});
+            } else {
+                poll.userId = req.user._id;
+                poll.save(function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
         });
 
 router
+    .use(bodyParser.urlencoded({ extended: true}))
+    .use(bodyParser.json())
     .route('/polls/:id')
+        .get(function (req, res) {
+            Poll.findOne({_id : req.params.id }, function (err, doc) {
+                if (err) {
+                    console.log("Error");
+                } else {
+                    console.log("response " + doc);
+                    res.json(doc);
+                }
+            });
+        })
         .put(function (req, res) {
             // To do
         })

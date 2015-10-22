@@ -17,8 +17,11 @@ var dir = function(name) {
 module.exports = function(passport) {
 
     router.get('/', function(req, res) {
-        console.log("hm" + dir('/../public/index.html'));
-        res.sendFile(dir('/../public/index.html'), { message: req.flash('message') });
+        if (req.user) {
+            res.redirect('/dashboard');
+        } else {
+            res.sendFile(dir('/../public/index.html'), { message: req.flash('message') });
+        }
     });
 
     router.get('/dashboard', isAuthenticated, function(req, res){
