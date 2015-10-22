@@ -13,3 +13,5 @@ Webapp for classroom polling.
   - Mongoose for saving users and polls
   - Express.js for backend and routing
   - AngularJS for webapp portion of the site
+  - UI-Router for Angular routing
+  - ngResource to interact with our backend
