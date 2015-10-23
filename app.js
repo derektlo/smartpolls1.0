@@ -38,6 +38,9 @@ app
     .use(express.static('./public', { index: false}))
     .use('/', routes)
     .use('/api', api)
+    .use(function(req, res) {
+        res.sendFile(__dirname + '/public/main.html');
+    })
     .listen(3000, function(){
       console.log("Listening on port 3000.")
     });

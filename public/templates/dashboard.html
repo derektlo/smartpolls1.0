@@ -1,7 +1,7 @@
 <ul>
     <li ng-repeat="poll in polls">
         <span ng-click="show(poll._id)">{{poll.name}}</span>
-        <span>{{poll._id.getTimestamp() | date:'shortTime'}}</span>
+        <span>{{ poll.date | date:'shortTime'}}</span>
         <ul>
             <li ng-repeat="parameter in poll.parameters">
                 <span>{{parameter}}: {{poll.values[$index]}}</span>

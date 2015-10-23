@@ -1,7 +1,18 @@
 angular.module('SmartPolls')
     .controller('DashboardController', function ($scope, $rootScope, Poll, $state) {
-        $scope.polls = Poll.query();
+        $scope.polls = Poll.query(function(){
+
+            $scope.polls.forEach(function (poll) {
+                console.log(poll._id.substring(0,8));
+                timestamp = poll._id.substring(0,8);
+                poll.date = new Date(parseInt( timestamp, 16 ) * 1000 );
+                console.log(poll.date);
+            });
+        });
         console.log("polls: ", $scope.polls);
+
+
+
         $scope.show = function (id) {
             console.log(id);
             $state.go('singlePoll', {pollId : id});
@@ -37,7 +48,7 @@ angular.module('SmartPolls')
 
         $scope.delete = function (pollId) {
             console.log("delete");
-            $scope.poll.delete();
+            $scope.poll.$delete();
             $state.go('dashboard');
         };
     });

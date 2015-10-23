@@ -55,6 +55,9 @@ router
             // To do
         })
         .delete(function (req, res){
+            Poll.findByIdAndRemove({ _id : req.params.id }, function (err) {
+                res.json(null);
+            });
             console.log("DELETEING");
         });
 

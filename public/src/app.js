@@ -15,7 +15,7 @@ angular.module('SmartPolls', ['ui.router', 'ngResource', 'chart.js'])
                 templateUrl: 'templates/newPoll.html'
             })
             .state('singlePoll', {
-                url: 'dashboard/:pollId',
+                url: '/dashboard/:pollId',
                 controller: 'SinglePollController',
                 templateUrl: 'templates/singlePoll.html',
                 params: { pollId: null }
