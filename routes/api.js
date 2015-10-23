@@ -30,6 +30,12 @@ router
                 });
             }
         });
+        // .delete(function (req, res) {
+        //     console.log("id: " + req.params.id);
+        //     Poll.findByIdAndRemove({ _id : req.params.id }, function (err) {
+        //         res.json(null);
+        //     });
+        // });
 
 router
     .use(bodyParser.urlencoded({ extended: true}))
@@ -48,10 +54,8 @@ router
         .put(function (req, res) {
             // To do
         })
-        .delete(function (req, res) {
-            Poll.remove({ ObjectId : req.body.objectId }, function (err, doc) {
-                res.json(null);
-            });
+        .delete(function (req, res){
+            console.log("DELETEING");
         });
 
 router

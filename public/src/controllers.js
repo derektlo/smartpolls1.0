@@ -29,19 +29,15 @@ angular.module('SmartPolls')
     })
     .controller('SinglePollController', function ($scope, $rootScope, $state, Poll) {
         $rootScope.PAGE = "single";
-        console.log($state.params.pollId);
         Poll.get({ id: $state.params.pollId }, function(poll){
-            console.log(poll.parameters);
             $scope.poll = poll;
             $scope.labels = $scope.poll.parameters;
             $scope.data = [300, 500, 100];
         });
-        // console.log("Viewing poll: ", $scope.poll);
-        // console.log("Hm ", $scope.poll.parameters);
 
-
-        $scope.delete = function () {
-            $scope.poll.$delete();
+        $scope.delete = function (pollId) {
+            console.log("delete");
+            $scope.poll.delete();
             $state.go('dashboard');
         };
     });
