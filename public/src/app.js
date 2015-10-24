@@ -35,13 +35,13 @@ angular.module('SmartPollsAnswers', ['ui.router', 'ngResource', 'chart.js'])
             .state('answers', {
                 url: '/answer/:username',
                 controller: 'AnswersController',
-                templateUrl: 'templates/pollList.html',
+                templateUrl: 'templates/answerList.html',
                 params: { username: null }
             })
-            .state('singleAnswer', {
-                url: '/answer/:pollId',
-                controller: 'SinglePollController',
-                templateUrl: 'templates/singlePoll.html',
+            .state('answerPoll', {
+                url: '/answer/:username/:pollId',
+                controller: 'ResponseController',
+                templateUrl: 'templates/answerPoll.html',
                 params: { pollId: null }
             });
     });

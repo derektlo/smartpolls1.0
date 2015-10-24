@@ -9,8 +9,8 @@ router
     .use(bodyParser.json())
     .route('/polls')
         .get(function (req, res) {
-            console.log("all polls");
-            Poll.find({userId : req.user._id}, function (err, doc) {
+            console.log("all polls for username: " + req.user.username);
+            Poll.find({username : req.user.username}, function (err, doc) {
                 if (err) {
 
                 } else {
@@ -23,7 +23,7 @@ router
             if (poll.name.length == 0 || poll.parameters.length == 0) {
                 res.json({message : 'There was an error.'});
             } else {
-                poll.userId = req.user._id;
+                poll.username = req.user.username;
                 poll.save(function(err) {
                     if (err) {
                         console.log(err);
@@ -46,7 +46,13 @@ router
             console.log("particular poll");
             Poll.findOne({_id : req.params.id }, function (err, doc) {
                 if (err) {
-                    console.log("Error");
+                    Poll.find({username: req.params.id}, function(err, doc){
+                        if (err) {
+                            console.log("Error");
+                        } else {
+                            res.json({ result: doc });
+                        }
+                    });
                 } else {
                     console.log("response " + doc);
                     res.json(doc);
@@ -54,7 +60,15 @@ router
             });
         })
         .put(function (req, res) {
-            // To do
+            console.log("values: " + req.params.values);
+            console.log("values: " + req.body.values);
+            if (req.body.values) {
+                Poll.findByIdAndUpdate( {_id : req.params.id }, {values : req.body.values}, function(err, doc){
+                    if (err) {
+                        console.log("Error in update");
+                    }
+                });
+            }
         })
         .delete(function (req, res){
             Poll.findByIdAndRemove({ _id : req.params.id }, function (err) {
@@ -63,21 +77,21 @@ router
             console.log("DELETEING");
         });
 
-router
-    .use(bodyParser.urlencoded({ extended: true}))
-    .use(bodyParser.json())
-    .route('/polls/:username')
-        .get(function (req, res) {
-            console.log("getting polls for user");
-            Poll.findOne({username : req.params.username }, function (err, doc) {
-                if (err) {
-                    console.log("Error");
-                } else {
-                    console.log("response " + doc);
-                    res.json(doc);
-                }
-            });
-        });
+// router
+//     .use(bodyParser.urlencoded({ extended: true}))
+//     .use(bodyParser.json())
+//     .route('/polls/:username')
+//         .get(function (req, res) {
+//             console.log("getting polls for username " + req.params.username);
+//             Poll.find({username : req.params.username }, function (err, doc) {
+//                 if (err) {
+//                     console.log("Error");
+//                 } else {
+//                     console.log("response " + doc);
+//                     res.json(doc);
+//                 }
+//             });
+//         });
 
 router
     .route('/createpoll')

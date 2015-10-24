@@ -19,7 +19,7 @@ angular.module('SmartPolls')
             name:       ['', 'text'],
             parameters: ['', 'array'],
             values:     ['', 'array'],
-            userId:     ['', 'text']
+            username:   ['', 'text']
         });
 
         $scope.save = function () {
@@ -28,6 +28,7 @@ angular.module('SmartPolls')
             if ($scope.newPoll.$invalid) {
                 $scope.$broadcast('record:invalid');
             } else {
+                console.log("saving poll ", $scope.poll);
                 $scope.poll.$save();
                 $state.go('dashboard');
             }
@@ -71,15 +72,39 @@ angular.module('SmartPollsAnswers')
         };
     })
     .controller('AnswersController', function ($scope, $rootScope, $state, Poll) {
-        $scope.polls = Poll.query(function(){
-            console.log($scope.polls);
+        var polls = Poll.get({id: $state.params.username}, function(){
+            //console.log($scope.polls);
+            console.log(polls);
+            $scope.polls = polls.result;
             $scope.polls.forEach(function (poll) {
                 timestamp = poll._id.substring(0,8);
                 poll.date = new Date(parseInt( timestamp, 16 ) * 1000 );
             });
         });
 
-        $scope.respond = function (id) {
-            $state.go('singlePoll', {pollId : id});
+        $scope.show = function (id) {
+            $state.go('answerPoll', {username:$state.params.username, pollId : id});
         };
+    })
+    .controller('ResponseController', function($scope, $state, Poll) {
+        Poll.get({ id: $state.params.pollId }, function(poll){
+            $scope.poll = poll;
+            $scope.parameters = poll.parameters;
+            console.log("Poll: ", poll);
+        });
+        $scope.responseVal = 0;
+        $scope.respond = function() {
+            var polls = localStorage.getItem("polls");
+            if (!polls) {
+                polls = [];
+            }
+            console.log(polls.indexOf($scope.poll._id));
+            if (polls.indexOf($scope.poll._id) == -1) {
+                var newValues = $scope.poll.values;
+                newValues[$scope.responseVal] = newValues[$scope.responseVal] + 1;
+                $scope.poll.$update({values : newValues});
+                polls.push($scope.poll._id);
+                localStorage.setItem("polls", polls);
+            }
+        }
     });

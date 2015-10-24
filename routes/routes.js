@@ -33,6 +33,11 @@ module.exports = function(passport) {
         res.sendFile(dir('/../public/answer.html'));
     });
 
+    // router.get('/answer/:username/',function(req, res){
+    //     console.log("here");
+    //     res.sendFile(dir('/../public/answer.html'));
+    // });
+
     router
         .get('/login', function (req, res) {
             res.sendFile(dir('/../public/login.html'), {message: req.flash('message') });
