@@ -7,7 +7,7 @@ angular.module('SmartPolls', ['ui.router', 'ngResource', 'chart.js'])
             .state('dashboard', {
                 url: '/dashboard',
                 controller: 'DashboardController',
-                templateUrl: 'templates/dashboard.html'
+                templateUrl: 'templates/pollList.html'
             })
             .state('newPoll', {
                 url: '/new',
@@ -16,6 +16,30 @@ angular.module('SmartPolls', ['ui.router', 'ngResource', 'chart.js'])
             })
             .state('singlePoll', {
                 url: '/dashboard/:pollId',
+                controller: 'SinglePollController',
+                templateUrl: 'templates/singlePoll.html',
+                params: { pollId: null }
+            });
+    });
+
+angular.module('SmartPollsAnswers', ['ui.router', 'ngResource', 'chart.js'])
+    .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+        $locationProvider.html5Mode(true).hashPrefix('');
+
+        $stateProvider
+            .state('answerSplash', {
+                url: '/answer',
+                controller: 'AnswerSplashController',
+                templateUrl: 'templates/answerSplash.html',
+            })
+            .state('answers', {
+                url: '/answer/:username',
+                controller: 'AnswersController',
+                templateUrl: 'templates/pollList.html',
+                params: { username: null }
+            })
+            .state('singleAnswer', {
+                url: '/answer/:pollId',
                 controller: 'SinglePollController',
                 templateUrl: 'templates/singlePoll.html',
                 params: { pollId: null }

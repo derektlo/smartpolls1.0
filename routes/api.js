@@ -9,6 +9,7 @@ router
     .use(bodyParser.json())
     .route('/polls')
         .get(function (req, res) {
+            console.log("all polls");
             Poll.find({userId : req.user._id}, function (err, doc) {
                 if (err) {
 
@@ -42,6 +43,7 @@ router
     .use(bodyParser.json())
     .route('/polls/:id')
         .get(function (req, res) {
+            console.log("particular poll");
             Poll.findOne({_id : req.params.id }, function (err, doc) {
                 if (err) {
                     console.log("Error");
@@ -59,6 +61,22 @@ router
                 res.json(null);
             });
             console.log("DELETEING");
+        });
+
+router
+    .use(bodyParser.urlencoded({ extended: true}))
+    .use(bodyParser.json())
+    .route('/polls/:username')
+        .get(function (req, res) {
+            console.log("getting polls for user");
+            Poll.findOne({username : req.params.username }, function (err, doc) {
+                if (err) {
+                    console.log("Error");
+                } else {
+                    console.log("response " + doc);
+                    res.json(doc);
+                }
+            });
         });
 
 router

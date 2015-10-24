@@ -1,20 +1,14 @@
 angular.module('SmartPolls')
     .controller('DashboardController', function ($scope, $rootScope, Poll, $state) {
         $scope.polls = Poll.query(function(){
-
+            console.log($scope.polls);
             $scope.polls.forEach(function (poll) {
-                console.log(poll._id.substring(0,8));
                 timestamp = poll._id.substring(0,8);
                 poll.date = new Date(parseInt( timestamp, 16 ) * 1000 );
-                console.log(poll.date);
             });
         });
-        console.log("polls: ", $scope.polls);
-
-
 
         $scope.show = function (id) {
-            console.log(id);
             $state.go('singlePoll', {pollId : id});
         };
     })
@@ -30,6 +24,7 @@ angular.module('SmartPolls')
 
         $scope.save = function () {
             $scope.poll.parameters = $scope.strParams.split(",");
+            $scope.poll.values = Array.apply(null, Array($scope.poll.parameters.length).map(Number.prototype.valueOf,0));
             if ($scope.newPoll.$invalid) {
                 $scope.$broadcast('record:invalid');
             } else {
@@ -50,5 +45,41 @@ angular.module('SmartPolls')
             console.log("delete");
             $scope.poll.$delete();
             $state.go('dashboard');
+        };
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+angular.module('SmartPollsAnswers')
+    .controller('AnswerSplashController', function ($scope, $rootScope, $state) {
+        $scope.done = function (username) {
+            console.log("username: ", username);
+            $state.go('answers', {username : username});
+        };
+    })
+    .controller('AnswersController', function ($scope, $rootScope, $state, Poll) {
+        $scope.polls = Poll.query(function(){
+            console.log($scope.polls);
+            $scope.polls.forEach(function (poll) {
+                timestamp = poll._id.substring(0,8);
+                poll.date = new Date(parseInt( timestamp, 16 ) * 1000 );
+            });
+        });
+
+        $scope.respond = function (id) {
+            $state.go('singlePoll', {pollId : id});
         };
     });
