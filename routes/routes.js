@@ -25,8 +25,18 @@ module.exports = function(passport) {
     });
 
     router.get('/dashboard', isAuthenticated, function(req, res){
-            res.sendFile(dir('/../public/main.html'), { user: req.user });
+        res.sendFile(dir('/../public/main.html'), { user: req.user });
 	});
+
+    router.get('/answer',function(req, res){
+        console.log("here");
+        res.sendFile(dir('/../public/answer.html'));
+    });
+
+    // router.get('/answer/:username/',function(req, res){
+    //     console.log("here");
+    //     res.sendFile(dir('/../public/answer.html'));
+    // });
 
     router
         .get('/login', function (req, res) {

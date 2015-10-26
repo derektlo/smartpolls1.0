@@ -39,7 +39,7 @@ app
     .use('/', routes)
     .use('/api', api)
     .use(function(req, res) {
-        res.sendFile(__dirname + '/public/main.html');
+        res.redirect('/');
     })
     .listen(3000, function(){
       console.log("Listening on port 3000.")
