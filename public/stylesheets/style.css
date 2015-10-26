@@ -4,13 +4,7 @@
     font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 body {
-    background: url("/images/background_small.jpg") no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
     background-color: #555;
-    color: #EEE;
 }
 
 h1 {
@@ -19,29 +13,63 @@ h1 {
     text-align: center;
     display: block;
     font-size: 3em;
-
 }
 h2 {
     margin: auto;
+    margin-top: 20px;
     text-align: center;
     display: block;
     font-size: 1.5em;
 }
-
+.down-arrow {
+    width: 50px;
+    display: block;
+    color: #FFF:;
+    margin: 20px auto; 
+    z-index: 10;
+}
+.down-arrow:hover {
+    cursor: pointer;
+}
 a {
-  color: #EEE;
+  color: #F1F1F1;
   text-decoration: none;
 }
 a:visited {
-  color: #EEE;
+  color: #F1F1F1;
   text-decoration: none;
 }
+
+a.btn {
+    padding: 10px;
+    border-radius: 3px;
+}
+
+a.primary{
+    background-color: #1881e2;
+    border: 2px solid #1881e2;
+}
+
+a.primary:hover{
+    background-color: #0f5a9b;
+    border: 2px solid #0f5a9b;
+}
+
+a.secondary{
+    border: 2px solid #F1F1F1;
+}
+a.secondary:hover{
+    border: 2px solid #FFF;
+}
+
+
 header {
     width: 100%;
-    padding-top: 20px;
-    height: 70px;
+    padding-top: 10px;
+    height: 60px;
     position: fixed;
-    z-index: 20;
+    z-index: 50;
+    /*box-shadow: 0 5px 10px rgba(0,0,0,0);*/
 }
 
 header ul {
@@ -73,7 +101,7 @@ header a:hover {
 }
 
 header h1 {
-    margin-top: -15px;
+    margin-top: -10px;
     font-size: 2em;
     padding: 0;
 }
@@ -84,7 +112,16 @@ header h1 {
 .right {
     float: right;
 }
-
+#main-content {
+    background: url("/images/background_small.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #EEE;
+    position: relative;
+    z-index: 5;
+}
 #splash {
     position: relative;
     /*height: calc(100vh - 90px);*/
@@ -94,43 +131,64 @@ header h1 {
     position: fixed;
     left: 0;
     right: 0;
-    z-index: -5;
+    z-index: 0;
 }
 #info {
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    position: relative;
     height: 1000px;
     background-color: #FFF;
     z-index: 10;
+    padding: 90px;
+    box-shadow: 0 5px 30px rgba(50,50,50, .4);
 }
 
+#info h1 {
+    font-size: 2em;
+    text-align: left;
+    padding-top: 0px;
+    color: #777;
+}
+#push {
+    height: 150px;
+}
 footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     text-align: center;
-    height: 25px;
-    padding: 25px;
+    height: 120px;
+    padding-top: 30px;
     font-size: 12px;
-    background-color: #DDD;
-    color: #AAA;
+    background-color: #555;
+    color: #CCC;
+    z-index: 0;
 }
 
 footer ul {
     width: 100%;
     list-style: none;
     text-align: center;
+    padding-bottom: 30px;
 }
 
 footer ul li {
     display: inline;
     padding-left: 20px;
     padding-right: 20px;
-
 }
 
 footer a {
-    color: #888;
+    color: #AAA;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
 }
 
 footer a:visited {
-    color: #888;
+    color: #AAA;
 }
 footer a:hover {
-    color: #222;
+    color: #EEE;
 }
