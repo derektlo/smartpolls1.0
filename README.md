@@ -15,3 +15,7 @@ Webapp for classroom polling.
   - AngularJS for webapp portion of the site
   - UI-Router for Angular routing
   - ngResource to interact with our backend
+
+# Running SmartPolls Locally
+  - mongod --config /usr/local/etc/mongod.conf
+  - nodemon app.js
