@@ -7,7 +7,7 @@ var express         = require('express'),
     passport        = require('passport'),
     expressSession  = require('express-session'),
     flash           = require('connect-flash'),
-    dbConfig        = require('./db'),
+    //dbConfig        = require('./db'),
     mongoose        = require('mongoose');
 
 var app             = express();
@@ -19,7 +19,18 @@ var api             = require('./routes/api'),
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // Connect to DB
-mongoose.connect(dbConfig.url);
+//mongoose.connect(dbConfig.url);
+var uristring = process.env.MONGOLAB_URI;
+
+// Makes connection asynchronously.  Mongoose will queue up database
+// operations and release them when the connection is complete.
+mongoose.connect(uristring, function (err, res) {
+  if (err) {
+  console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+  } else {
+  console.log ('Succeeded connected to: ' + uristring);
+  }
+});
 
 // Configuring Passport
 // TODO - Why Do we need this key ?
