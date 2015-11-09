@@ -14,7 +14,7 @@ $(document).ready(function(){
         var so = 1 - scroll / 200;
         console.log("so:"+so);
 
-        $("header").css("background","rgba(85, 85, 85, "+ o +")");
+        /*$("header").css("background","rgba(255, 255, 255, "+ o +")");*/
         $("#splash-text").css("opacity",+ so);
 
 //        $("header").css("background","rgba(187, 196, 205, "+ o +")");
