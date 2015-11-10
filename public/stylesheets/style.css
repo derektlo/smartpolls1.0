@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "Courier", "Helvetica Neue", Arial, sans-serif;
+    font-family: "Courier New", "Helvetica Neue", Arial, sans-serif;
     font-weight: lighter;
     color: #111;
 }
@@ -54,20 +54,17 @@ a.btn{
 
 a.primary{
     color: #fff;
-    height: 50px;
     background-color: #1881e2;
-    border-color: #4598e0;
+    border-color: #1881e2;
 }
 
 a.primary:hover{
     background-color: #4598e0;
-
     color: #FFF;
     cursor: pointer;
 }
 
 a.secondary{
-    height: 50px;
     background-color: #111;
     color: #FFF;
 }
@@ -110,10 +107,10 @@ header ul li a {
     border-left: 1px solid #EEE;
     display: block;
     width: 125px;
-    padding-bottom: 5px;
+    padding-top: 8px;
     padding-right: 15px;
     padding-left: 15px;
-    height: 50px;
+    height: 47px;
 }
 
 header a:hover {
@@ -128,7 +125,7 @@ header h1 {
     padding: 0;
     padding-top: 0px;
     width: 400px;
-    margin-top: 6px;
+    margin-top: -2px;
 }
 header .left a {
     border: none;
